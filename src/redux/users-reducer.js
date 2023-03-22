@@ -20,10 +20,8 @@ const usersReducer = (state = initialState, action) => {
         case UNFOLLOW:
             return unfollow(state, action);
         case SET_USERS :
-            debugger
             return {...state, users: [...action.users]};
         case SET_CURRENT_PAGE:
-            debugger
             return {...state, currentPage: action.currentPage};
         case SET_TOTAL_USERS_COUNT:
             return {...state, totalUsers: action.totalUsers};
