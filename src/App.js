@@ -1,13 +1,13 @@
 import './App.css';
 import Header from "./components/Header/Header";
 import Nav from "./components/Nav/Nav";
-import Profile from "./components/Profile/Profile";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Settings from "./components/Settings/Settings";
 import Music from "./components/Music/Music";
 import News from "./components/News/News";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
+import ProfileContainer from "./components/Profile/ProfileContainer";
 
 function App(props) {
     return (
@@ -17,8 +17,8 @@ function App(props) {
                 <Nav/>
                 <div className="app-wrapper-content">
                     <Routes>
-                        <Route path="/profile"
-                               element={<Profile/>}/>
+                        <Route path="/profile/:userId?"
+                               element={<ProfileContainer/>}/>
                         <Route path="/dialogs/*"
                                element={<DialogsContainer/>}/>
                         < Route path="/news" element={<News/>}/>

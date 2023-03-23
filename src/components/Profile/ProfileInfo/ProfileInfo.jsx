@@ -1,6 +1,10 @@
 import classes from "./ProfileInfo.module.css";
+import Preloader from "../../common/Preloader/Preloader";
 
-const ProfileInfo = () => {
+const ProfileInfo = (props) => {
+    if(!props.profile){
+        return <Preloader/>
+    }
     return (
         <div>
             <div className={classes["main-content-image"]}>
@@ -9,7 +13,12 @@ const ProfileInfo = () => {
                     alt="profile avatar"/>
             </div>
             <div className={classes["description"]}>
-                ava + desc
+
+                <div>
+                    <img src={props.profile.photos.small} alt="ava"/>
+                </div>
+                <h3>{props.profile.fullName}</h3>
+                <div>{props.profile.aboutMe}</div>
             </div>
         </div>
     );
