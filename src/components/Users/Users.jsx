@@ -1,6 +1,7 @@
 import classes from "./Users.module.css";
 import userPhoto from "../../assets/hulk.png";
 import {NavLink} from "react-router-dom";
+import axios from "axios";
 
 const Users = (props) => {
     let pagesCount = Math.ceil(props.totalUsers / props.pageSize);
@@ -8,6 +9,29 @@ const Users = (props) => {
 
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i);
+    }
+
+    let onFollow = (id) => {
+        axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${id}`, {}, {
+            withCredentials: true
+        })
+            .then(response => {
+                if (response.data.resultCode === 0) {
+                    props.follow(id);
+                }
+            });
+    }
+
+    let onUnfollow = (id) => {
+        axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${id}`,{
+            withCredentials: true
+        })
+            .then(response => {
+                debugger
+                if (response.data.resultCode === 0) {
+                    props.unfollow(id);
+                }
+            });
     }
 
     return (<div>
@@ -26,17 +50,13 @@ const Users = (props) => {
                         <div>
                             <NavLink to={"/profile/" + u.id}>
                                 <img src={u.photos.small ? u.photos.small : userPhoto} alt="avatar"
-                                 className={classes.userPhoto}/>
+                                     className={classes.userPhoto}/>
                             </NavLink>
                         </div>
                         <div>
                             {u.followed
-                                ? <button onClick={() => {
-                                    props.unfollow(u.id)
-                                }}>Unfollow</button>
-                                : <button onClick={() => {
-                                    props.follow(u.id)
-                                }}>Follow</button>}
+                                ? <button onClick={() => onUnfollow(u.id)}>Unfollow</button>
+                                : <button onClick={() => onFollow(u.id)}>Follow</button>}
                         </div>
                     </span>
                         <span>
