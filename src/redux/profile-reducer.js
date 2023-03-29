@@ -1,3 +1,5 @@
+import {profileAPI} from "../api/api";
+
 const ADD_POST = "ADD-POST";
 const CHANGE_NEW_POST_TEXT = "CHANGE-NEW-POST-TEXT";
 const SET_USER_PROFILE = "SET-USER-PROFILE";
@@ -50,8 +52,17 @@ export const changeNewPostTextActionCreator = (text) => {
     return {type: CHANGE_NEW_POST_TEXT, text: text};
 }
 
-export const setUserProfile = (profile) => {
+const setUserProfile = (profile) => {
     return {type: SET_USER_PROFILE, profile: {...profile}};
+}
+
+export const getUserProfile = (userId) => {
+    return (dispatch) => {
+        profileAPI.getProfile(userId)
+            .then(response => {
+                dispatch(setUserProfile(response.data));
+            });
+    }
 }
 
 export default profileReducer;

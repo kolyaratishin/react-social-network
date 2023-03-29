@@ -1,7 +1,6 @@
 import classes from "./Users.module.css";
 import userPhoto from "../../assets/hulk.png";
 import {NavLink} from "react-router-dom";
-import axios from "axios";
 
 const Users = (props) => {
     let pagesCount = Math.ceil(props.totalUsers / props.pageSize);
@@ -12,29 +11,11 @@ const Users = (props) => {
     }
 
     let onFollow = (id) => {
-        props.toggleFollowingProgress(true, id);
-        axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${id}`, {}, {
-            withCredentials: true
-        })
-            .then(response => {
-                if (response.data.resultCode === 0) {
-                    props.follow(id);
-                }
-                props.toggleFollowingProgress(false, id);
-            });
+        props.follow(id);
     }
 
     let onUnfollow = (id) => {
-        props.toggleFollowingProgress(true, id);
-        axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${id}`, {
-            withCredentials: true
-        })
-            .then(response => {
-                if (response.data.resultCode === 0) {
-                    props.unfollow(id);
-                }
-                props.toggleFollowingProgress(false, id);
-            });
+        props.unfollow(id);
     }
 
     return (<div>
