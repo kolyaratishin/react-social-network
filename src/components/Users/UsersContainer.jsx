@@ -3,6 +3,8 @@ import {follow, getUsers, unfollow} from "../../redux/users-reducer";
 import {Component} from "react";
 import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader";
+import {compose} from "redux";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 class UsersApiContainer extends Component {
     componentDidMount() {
@@ -36,9 +38,11 @@ function mapStateToProps(state) {
     }
 }
 
-
-export default connect(mapStateToProps, {
-    follow,
-    unfollow,
-    getUsers
-})(UsersApiContainer);
+export default compose(
+    connect(mapStateToProps, {
+        follow,
+        unfollow,
+        getUsers
+    }),
+    withAuthRedirect
+)(UsersApiContainer);
